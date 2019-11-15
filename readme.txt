@@ -1,3 +1,7 @@
+
+![alt text] (https://github.com/vgautam99/Search-Restaurants/blob/master/Restaurents/staticfiles/images/homepage.png
+
+
 Note: To test apis uncomment return statements in views.py
 Note: Please activate Virtual Enviroment first.
 
