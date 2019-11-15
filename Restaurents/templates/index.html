@@ -1,0 +1,74 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+<meta charset="utf-8">
+<title>SmartQ Challenge</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="container">
+		{% block content %}
+			<div class="row">
+				<div class="col-sm-8">
+					<form method="GET" action="{% url "restaurant_near_me" %}">
+						<input name="q" value="{{request.GET.q}}" placeholder="search cuisines near me">
+						<button class="btn btn-success" type="submit">Search</button>
+					</form>
+				</div>
+				<div class="text-right">
+					<form method="GET" action="{% url "all_restaurants_near_me" %}">
+						<button class="btn btn-success" type="submit">Restaurants near me</button>
+					</form>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				{% for restaurant in restaurant_list %}
+					<div class="col-lg-4">
+						<div class="card" style="width: 18rem;">
+							<img class="card-img-top" src="{% static "images/download.jfif" %}" alt="Restaurant1">
+							<div class="card-body">
+								<h5 class="card-title">Restaurant Name: {{restaurant.restaurant_name}}</h5>
+								<h5 class="card-text">Cuisines: {{restaurant.cuisines}}</h5>
+								<h5 class="card-text">For Two: {{restaurant.average_cost}} {{restaurant.currency}}</h5>
+								<h5 class="card-text">Table Booking: {{restaurant.has_table_booking}}</h5>
+								<h5 class="card-text">Online Delivery: {{restaurant.has_online_delivery}}</h5>
+								<h5 class="card-text">Rating: {{restaurant.aggregate_rating}}</h5>
+								<h5 class="card-text">Reviews: {{restaurant.rating_text}}</h5>
+								<h5 class="card-text">Vote: {{restaurant.votes}}</h5>
+								<h5 class="card-text">City: {{restaurant.city}}</h5>
+								<h5 class="card-text">Address: {{restaurant.address}}</h5>
+								<h5 class="card-text">Distance: {{restaurant.distance}} kms</h5>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="row">
+				{% for query in queryset %}
+				<div class="col-sm-4">
+					<div class="card" style="width: 18rem;">
+						<img class="card-img-top" src="{% static "images/download.jfif" %}" alt="Restaurant1">
+						<div class="card-body">
+							<h5 class="card-title">Restaurant Name: {{query.restaurant_name}}</h5>
+								<h5 class="card-text">Cuisines: {{query.cuisines}}</h5>
+								<h5 class="card-text">For Two: {{query.average_cost}} {{query.currency}}</h5>
+								<h5 class="card-text">Table Booking: {{query.has_table_booking}}</h5>
+								<h5 class="card-text">Online Delivery: {{query.has_online_delivery}}</h5>
+								<h5 class="card-text">Rating: {{query.aggregate_rating}}</h5>
+								<h5 class="card-text">Reviews: {{query.rating_text}}</h5>
+								<h5 class="card-text">Vote: {{query.votes}}</h5>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		{% endblock %}
+	</div>
+</body>
+</html>
